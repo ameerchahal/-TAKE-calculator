@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GameFest Tier Allocation Checker</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      background-color: #090a0f;
+      color: white;
+    }
+    header {
+      text-align: center;
+      padding: 2rem 1rem 1rem;
+      color: #f8b933;
+    }
+    header img {
+      width: 80px;
+      height: 80px;
+      border-radius: 12px;
+      margin-bottom: 1rem;
+    }
+    .wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+    .category {
+      background: linear-gradient(145deg, #13141c, #1a1b25);
+      border: 1px solid #1c1e2a;
+      border-radius: 15px;
+      padding: 1.5rem;
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+    }
+    .category h2 {
+      margin-top: 0;
+      color: #f8b933;
+      font-size: 1.4rem;
+    }
+    .pool {
+      margin-bottom: 1rem;
+    }
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+    select, input[type="number"] {
+      width: 100%;
+      padding: 0.6rem;
+      font-size: 1rem;
+      border-radius: 10px;
+      border: none;
+      background: #0e0f17;
+      color: #f0f0f0;
+      outline: none;
+    }
+    .result {
+      margin-top: 0.5rem;
+      color: #80ffd3;
+    }
+    .total {
+      text-align: center;
+      font-size: 1.8rem;
+      margin: 2rem 0 1rem;
+      color: #76ff03;
+      font-weight: bold;
+    }
+    .actions {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    button {
+      padding: 0.75rem 1.5rem;
+      margin: 0.5rem;
+      border-radius: 10px;
+      font-size: 1rem;
+      border: none;
+      background: #f0c52b;
+      color: #000;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+    }
+    button:hover {
+      background: #ffdf65;
+    }
+    @media screen and (max-width: 600px) {
+      .wrapper {
+        padding: 1rem 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="Profile_Picture_-_Logo.png" alt="Overtake Logo" />
+    <h1>GameFest Tier Allocation Checker</h1>
+  </header>
+
+  <div class="wrapper" id="app"></div>
+  <div class="total" id="totalDisplay">Total Allocation: 0 $TAKE</div>
+
+  <script>
+    const app = document.getElementById("app");
+    const totalDisplay = document.getElementById("totalDisplay");
+    const state = { tiers: {}, pops: {}, ranks: {} };
+
+    function recalculateTotal() {
+      let total = 0;
+      Object.values(state.tiers).forEach(v => total += v);
+      Object.values(state.pops).forEach(v => total += v);
+      Object.values(state.ranks).forEach(v => total += v);
+      totalDisplay.textContent = \`Total Allocation: \${total.toLocaleString(undefined, {maximumFractionDigits: 2})} $TAKE\`;
+    }
+
+    function createSelectCategory(title, allocations) {
+      const category = document.createElement("div");
+      category.className = "category";
+      const heading = document.createElement("h2");
+      heading.textContent = title;
+      category.appendChild(heading);
+
+      Object.entries(allocations).forEach(([labelText, options]) => {
+        const poolDiv = document.createElement("div");
+        poolDiv.className = "pool";
+        const label = document.createElement("label");
+        label.textContent = labelText;
+
+        const select = document.createElement("select");
+        for (const tier in options) {
+          const opt = document.createElement("option");
+          opt.value = tier;
+          opt.textContent = tier;
+          select.appendChild(opt);
+        }
+
+        const result = document.createElement("div");
+        result.className = "result";
+
+        select.addEventListener("change", () => {
+          const value = options[select.value] || 0;
+          state.tiers[labelText] = value;
+          result.textContent = \`+ \${value.toLocaleString()} $TAKE\`;
+          recalculateTotal();
+        });
+
+        poolDiv.appendChild(label);
+        poolDiv.appendChild(select);
+        poolDiv.appendChild(result);
+        category.appendChild(poolDiv);
+      });
+
+      app.appendChild(category);
+    }
+
+    function createYesNoCategory(title, yesValues) {
+      const category = document.createElement("div");
+      category.className = "category";
+      const heading = document.createElement("h2");
+      heading.textContent = title;
+      category.appendChild(heading);
+
+      Object.entries(yesValues).forEach(([labelText, reward]) => {
+        const poolDiv = document.createElement("div");
+        poolDiv.className = "pool";
+        const label = document.createElement("label");
+        label.textContent = labelText;
+
+        const select = document.createElement("select");
+        ["No", "Yes"].forEach(val => {
+          const opt = document.createElement("option");
+          opt.value = val;
+          opt.textContent = val;
+          select.appendChild(opt);
+        });
+
+        const result = document.createElement("div");
+        result.className = "result";
+
+        select.addEventListener("change", () => {
+          const value = select.value === "Yes" ? reward : 0;
+          state.pops[labelText] = value;
+          result.textContent = \`+ \${value.toLocaleString()} $TAKE\`;
+          recalculateTotal();
+        });
+
+        poolDiv.appendChild(label);
+        poolDiv.appendChild(select);
+        poolDiv.appendChild(result);
+        category.appendChild(poolDiv);
+      });
+
+      app.appendChild(category);
+    }
+
+    function createRankInput(title, rankMap) {
+      const category = document.createElement("div");
+      category.className = "category";
+      const heading = document.createElement("h2");
+      heading.textContent = title;
+      category.appendChild(heading);
+
+      const input = document.createElement("input");
+      input.type = "number";
+      input.placeholder = "Enter your rank";
+      const result = document.createElement("div");
+      result.className = "result";
+
+      input.addEventListener("input", () => {
+        const rank = parseInt(input.value);
+        let value = 0;
+        if (!isNaN(rank)) {
+          if (rankMap[rank]) value = rankMap[rank];
+          else if (rank <= 3) value = [150000, 100000, 70000][rank - 1];
+          else if (rank <= 10) value = 25000;
+          else if (rank <= 20) value = 10000;
+          else if (rank <= 50) value = 5000;
+          else if (rank <= 100) value = 2000;
+          else if (rank <= 200) value = 1000;
+          else if (rank <= 500) value = 500;
+          else if (rank <= 1000) value = 200;
+        }
+        state.ranks[title] = value;
+        result.textContent = \`+ \${value.toLocaleString()} $TAKE\`;
+        recalculateTotal();
+      });
+
+      category.appendChild(input);
+      category.appendChild(result);
+      app.appendChild(category);
+    }
+
+    const tierAllocations = {
+      "Clear Quests, Collect AP": { Champion: 250000, Grandmaster: 150000, Master: 100000, Diamond: 57142.86, Platinum: 18888.89, Gold: 3000, Silver: 522.22, Unranked: 0 },
+      "Strengthen your cards": { Champion: 56000, Grandmaster: 30000, Master: 12000, Diamond: 5000, Platinum: 1500, Gold: 750, Silver: 100, Unranked: 0 },
+      "Collect cards and equipment": { Champion: 125000, Grandmaster: 75000, Master: 50000, Diamond: 28142.43, Platinum: 9444.44, Gold: 1500, Silver: 261.11, Unranked: 0 },
+      "Level up and win": { Champion: 75000, Grandmaster: 45000, Master: 30000, Diamond: 17142.86, Platinum: 5666.67, Gold: 900, Silver: 157.67, Unranked: 0 },
+      "Climb the Leaderboard": { Champion: 60000, Grandmaster: 54000, Master: 48000, Diamond: 4600, Platinum: 666, Gold: 300, Silver: 148, Unranked: 0 },
+      "Convert collect AP": { Champion: 450000, Grandmaster: 300000, Master: 225000, Diamond: 23969.07, Platinum: 2833.33, Gold: 450, Silver: 56.67, Unranked: 0 },
+      "Dominate with the highest kills": { Champion: 300000, Grandmaster: 200000, Master: 150000, Diamond: 15979.38, Platinum: 1888.89, Gold: 300, Silver: 37.78, Unranked: 0 },
+      "Survive the zombie hordle": { Champion: 150000, Grandmaster: 100000, Master: 75000, Diamond: 7989.69, Platinum: 944.44, Gold: 150, Silver: 18.89, Unranked: 0 }
+    };
+
+    const popAllocations = {
+      "Overtake Basics": 1.064,
+      "Mint GG:S Pass": 10.13,
+      "Sui x OVERTAKE April": 34.89,
+      "Sui x OVERTAKE March": 31.68,
+      "OVERTAKE Quiz Student (lvl 1)": 8.45,
+      "OVERTAKE Quiz Professor (lvl 3)": 45.97,
+      "Ultimate Dedication": 1953.12,
+      "Reward for OGs": 703.23,
+      "Participate in Games": 199.46,
+      "Prove Your Love": 1253.91
+    };
+
+    const somnisS1Ranks = {
+      1: 14799, 2: 13900, 3: 13772, 4: 13433, 5: 13379, 6: 12961,
+      7: 12352, 8: 12095, 9: 12061, 10: 11965, 98: 9221
+    };
+
+    // Render sections
+    createSelectCategory("Somnis + GG:S Launchpools", tierAllocations);
+    createYesNoCategory("POPs", popAllocations);
+    createRankInput("Somnis Season 1", somnisS1Ranks);
+    createRankInput("Somnis November Event", {});
+  </script>
+</body>
+</html>
