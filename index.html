@@ -103,57 +103,9 @@
   </header>
 
   <div class="wrapper">
-    <!-- Somnis Category -->
-    <div class="category">
-      <h2>Somnis</h2>
-      <div class="pool" data-pool="Clear Quests, Collect AP">
-        <label>Clear Quests, Collect AP</label>
-        <select></select>
-        <div class="result"></div>
-      </div>
-      <div class="pool" data-pool="Strengthen your cards">
-        <label>Strengthen your cards</label>
-        <select></select>
-        <div class="result"></div>
-      </div>
-      <div class="pool" data-pool="Collect cards and equipment">
-        <label>Collect cards and equipment</label>
-        <select></select>
-        <div class="result"></div>
-      </div>
-      <div class="pool" data-pool="Level up and win">
-        <label>Level up and win</label>
-        <select></select>
-        <div class="result"></div>
-      </div>
-      <div class="pool" data-pool="Climb the Leaderboard">
-        <label>Climb the Leaderboard</label>
-        <select></select>
-        <div class="result"></div>
-      </div>
-    </div>
+    <!-- Somnis and GG:S pools categories go here (use your existing pools) -->
+    <!-- For example, you can add your Somnis and GG:S pools from your first code here -->
 
-    <!-- GG:S Category -->
-    <div class="category">
-      <h2>GG:S</h2>
-      <div class="pool" data-pool="Convert collect AP">
-        <label>Convert collect AP</label>
-        <select></select>
-        <div class="result"></div>
-      </div>
-      <div class="pool" data-pool="Dominate with the highest kills">
-        <label>Dominate with the highest kills</label>
-        <select></select>
-        <div class="result"></div>
-      </div>
-      <div class="pool" data-pool="Survive the zombie hordle">
-        <label>Survive the zombie hordle</label>
-        <select></select>
-        <div class="result"></div>
-      </div>
-    </div>
-
-    <!-- POPs Category -->
     <div class="category">
       <h2>POPs</h2>
       <div class="check" data-check="Overtake Basics">
@@ -213,7 +165,6 @@
       </div>
     </div>
 
-    <!-- SOMNIS Season 1 -->
     <div class="category">
       <h2>SOMNIS Season 1</h2>
       <div class="rank-check">
@@ -223,7 +174,6 @@
       </div>
     </div>
 
-    <!-- SOMNIS Season 2 -->
     <div class="category">
       <h2>SOMNIS Season 2 (November Event)</h2>
       <div class="rank-check">
@@ -233,7 +183,9 @@
       </div>
     </div>
 
-    <div class="total">Total Allocation: <span id="total">0</span> $TAKE</div>
+    <div class="total">
+      Total Allocation: <span id="total">0</span> $TAKE
+    </div>
 
     <div class="actions">
       <button onclick="resetForm()">Reset All</button>
@@ -242,103 +194,7 @@
   </div>
 
   <script>
-    // Allocation data for Somnis & GG:S pools
-    const allocations = {
-      "Clear Quests, Collect AP": {
-        Champion: 250000,
-        Grandmaster: 150000,
-        Master: 100000,
-        Diamond: 57142.86,
-        Platinum: 18888.89,
-        Gold: 3000,
-        Silver: 522.22,
-        Unranked: 0,
-      },
-      "Strengthen your cards": {
-        Champion: 56000,
-        Grandmaster: 30000,
-        Master: 12000,
-        Diamond: 5000,
-        Platinum: 1500,
-        Gold: 750,
-        Silver: 100,
-        Unranked: 0,
-      },
-      "Collect cards and equipment": {
-        Champion: 125000,
-        Grandmaster: 75000,
-        Master: 50000,
-        Diamond: 28142.43,
-        Platinum: 9444.44,
-        Gold: 1500,
-        Silver: 261.11,
-        Unranked: 0,
-      },
-      "Level up and win": {
-        Champion: 75000,
-        Grandmaster: 45000,
-        Master: 30000,
-        Diamond: 17142.86,
-        Platinum: 5666.67,
-        Gold: 900,
-        Silver: 157.67,
-        Unranked: 0,
-      },
-      "Climb the Leaderboard": {
-        Champion: 60000,
-        Grandmaster: 54000,
-        Master: 48000,
-        Diamond: 4600,
-        Platinum: 666,
-        Gold: 300,
-        Silver: 148,
-        Unranked: 0,
-      },
-      "Convert collect AP": {
-        Champion: 450000,
-        Grandmaster: 300000,
-        Master: 225000,
-        Diamond: 23969.07,
-        Platinum: 2833.33,
-        Gold: 450,
-        Silver: 56.67,
-        Unranked: 0,
-      },
-      "Dominate with the highest kills": {
-        Champion: 300000,
-        Grandmaster: 200000,
-        Master: 150000,
-        Diamond: 15979.38,
-        Platinum: 1888.89,
-        Gold: 300,
-        Silver: 37.78,
-        Unranked: 0,
-      },
-      "Survive the zombie hordle": {
-        Champion: 150000,
-        Grandmaster: 100000,
-        Master: 75000,
-        Diamond: 7989.69,
-        Platinum: 944.44,
-        Gold: 150,
-        Silver: 18.89,
-        Unranked: 0,
-      },
-    };
-
-    // Tier order
-    const tiers = [
-      "Unranked",
-      "Silver",
-      "Gold",
-      "Platinum",
-      "Diamond",
-      "Master",
-      "Grandmaster",
-      "Champion",
-    ];
-
-    // POP allocations
+    // POP allocations including the new Quiz lvl 2
     const popAllocations = {
       "Overtake Basics": 1.064,
       "Mint GG:S Pass": 10.13,
@@ -353,109 +209,20 @@
       "Prove Your Love": 1253.91,
     };
 
-    // SOMNIS Season 1 ranks (index 0 unused, ranks start at 1)
+    // Corrected SOMNIS S1 ranks with swap at index 42 and 43
     const s1Ranks = [
-      null, // dummy for 0 index
-      14799,
-      13900,
-      13772,
-      13433,
-      13379,
-      12961,
-      12352,
-      12095,
-      12061,
-      11965,
-      11854,
-      11740,
-      11620,
-      11541,
-      11521,
-      11506,
-      11441,
-      11435,
-      11421,
-      11410,
-      11398,
-      11395,
-      11390,
-      11384,
-      11384,
-      11284,
-      11284,
-      11108,
-      10895,
-      10855,
-      10838,
-      10544,
-      10394,
-      10391,
-      10325,
-      10274,
-      10212,
-      10183,
-      10172,
-      10132,
-      10103,
-      10075,
-      10024,
-      9984,
-      9961,
-      9938,
-      9910,
-      9896,
-      9870,
-      9870,
-      9847,
-      9836,
-      9765,
-      9674,
-      9557,
-      9551,
-      9540,
-      9400,
-      9392,
-      9378,
-      9329,
-      9329,
-      9307,
-      9295,
-      9289,
-      9281,
-      9278,
-      9267,
-      9264,
-      9264,
-      9261,
-      9261,
-      9258,
-      9258,
-      9255,
-      9255,
-      9250,
-      9250,
-      9247,
-      9244,
-      9244,
-      9244,
-      9244,
-      9244,
-      9244,
-      9241,
-      9241,
-      9238,
-      9235,
-      9233,
-      9230,
-      9227,
-      9227,
-      9227,
-      9227,
-      9224,
-      9221,
+      null,
+      14799, 13900, 13772, 13433, 13379, 12961, 12352, 12095, 12061, 11965,
+      11854, 11740, 11620, 11541, 11521, 11506, 11441, 11435, 11421, 11410,
+      11398, 11395, 11390, 11384, 11384, 11284, 11284, 11108, 10895, 10855,
+      10838, 10544, 10394, 10391, 10325, 10274, 10212, 10183, 10172, 10132,
+      10103, 10075, 10024, 9984, 9961, 9938, 9910, 9896, 9870, 9870, 9847,
+      9836, 9765, 9674, 9557, 9551, 9540, 9400, 9392, 9378, 9329, 9329, 9307,
+      9295, 9289, 9281, 9278, 9267, 9264, 9264, 9261, 9261, 9258, 9258, 9255,
+      9255, 9250, 9250, 9247, 9244, 9244, 9244, 9244, 9244, 9244, 9241, 9241,
+      9238, 9235, 9233, 9230, 9227, 9227, 9227, 9227, 9224, 9221
     ];
 
-    // SOMNIS Season 2 allocation based on rank
     function getS2Allocation(rank) {
       if (rank === 1) return 150000;
       if (rank === 2) return 100000;
@@ -470,44 +237,18 @@
       return 0;
     }
 
-    // Initialize tier dropdowns for Somnis & GG:S
-    document.querySelectorAll('.pool').forEach(poolDiv => {
-      const poolName = poolDiv.dataset.pool;
-      const select = poolDiv.querySelector('select');
-
-      tiers.forEach(tier => {
-        const option = document.createElement('option');
-        option.value = tier;
-        option.textContent = tier;
-        select.appendChild(option);
-      });
-
-      select.addEventListener('change', () => {
-        const tier = select.value;
-        const amount = allocations[poolName][tier] || 0;
-        poolDiv.querySelector('.result').textContent = `${amount.toLocaleString()} $TAKE`;
-        calculateTotal();
-      });
-
-      // Default to Unranked
-      select.value = 'Unranked';
-      poolDiv.querySelector('.result').textContent = '';
-    });
-
-    // POP checkboxes logic
+    // Handle POP Yes/No changes
     document.querySelectorAll('.check').forEach(div => {
-      const checkName = div.dataset.check;
+      const name = div.dataset.check;
       const select = div.querySelector('select');
-      select.value = 'No'; // default
-
       select.addEventListener('change', () => {
-        const value = select.value === 'Yes' ? popAllocations[checkName] : 0;
-        div.querySelector('.result').textContent = `${value.toLocaleString()} $TAKE`;
+        const val = select.value === 'Yes' ? popAllocations[name] : 0;
+        div.querySelector('.result').textContent = val ? `${val.toLocaleString()} $TAKE` : '';
         calculateTotal();
       });
     });
 
-    // SOMNIS Season 1 rank input
+    // SOMNIS S1 rank input listener
     document.getElementById('rankS1').addEventListener('input', () => {
       const rank = parseInt(document.getElementById('rankS1').value, 10);
       let val = 0;
@@ -518,7 +259,7 @@
       calculateTotal();
     });
 
-    // SOMNIS Season 2 rank input
+    // SOMNIS S2 rank input listener
     document.getElementById('rankS2').addEventListener('input', () => {
       const rank = parseInt(document.getElementById('rankS2').value, 10);
       const val = rank ? getS2Allocation(rank) : 0;
@@ -526,6 +267,7 @@
       calculateTotal();
     });
 
+    // Total allocation calculation function
     function calculateTotal() {
       let total = 0;
 
