@@ -43,7 +43,7 @@
       color: #f8b933;
       font-size: 1.4rem;
     }
-    .pool {
+    .pool, .check, .rank-check {
       margin-bottom: 1rem;
     }
     label {
@@ -98,154 +98,54 @@
 </head>
 <body>
   <header>
-    <img src="Profile_Picture_-_Logo.png" alt="Overtake Logo" />
+    <img src="/mnt/data/Profile_Picture_-_Logo.png" alt="Overtake Logo">
     <h1>GameFest Tier Allocation Checker</h1>
   </header>
 
-  <div class="wrapper" id="app"></div>
-  <div class="total" id="totalDisplay">Total Allocation: 0 $TAKE</div>
+  <div class="wrapper">
+    <!-- Existing categories here -->
+
+    <div class="category">
+      <h2>POPs</h2>
+      <div class="check" data-check="Overtake Basics"> <label>Overtake Basics</label><select><option>No</option><option>Yes</option></select><div class="result"></div></div>
+      <div class="check" data-check="Mint GG:S Pass"><label>Mint GG:S Pass</label><select><option>No</option><option>Yes</option></select><div class="result"></div></div>
+      <div class="check" data-check="Sui x OVERTAKE April"><label>Sui x OVERTAKE April</label><select><option>No</option><option>Yes</option></select><div class="result"></div></div>
+      <div class="check" data-check="Sui x OVERTAKE March"><label>Sui x OVERTAKE March</label><select><option>No</option><option>Yes</option></select><div class="result"></div></div>
+      <div class="check" data-check="OVERTAKE Quiz Student (lvl 1)"><label>OVERTAKE Quiz Student (lvl 1)</label><select><option>No</option><option>Yes</option></select><div class="result"></div></div>
+      <div class="check" data-check="OVERTAKE Quiz Professor (lvl 3)"><label>OVERTAKE Quiz Professor (lvl 3)</label><select><option>No</option><option>Yes</option></select><div class="result"></div></div>
+      <div class="check" data-check="Ultimate Dedication"><label>Ultimate Dedication</label><select><option>No</option><option>Yes</option></select><div class="result"></div></div>
+      <div class="check" data-check="Reward for OGs"><label>Reward for OGs</label><select><option>No</option><option>Yes</option></select><div class="result"></div></div>
+      <div class="check" data-check="Participate in Games"><label>Participate in Games</label><select><option>No</option><option>Yes</option></select><div class="result"></div></div>
+      <div class="check" data-check="Prove Your Love"><label>Prove Your Love</label><select><option>No</option><option>Yes</option></select><div class="result"></div></div>
+    </div>
+
+    <div class="category">
+      <h2>SOMNIS Season 1</h2>
+      <div class="rank-check">
+        <label>Enter your Elite League 5 Rank (1-98)</label>
+        <input type="number" id="rankS1" min="1" max="98">
+        <div class="result" id="s1result"></div>
+      </div>
+    </div>
+
+    <div class="category">
+      <h2>SOMNIS Season 2 (November Event)</h2>
+      <div class="rank-check">
+        <label>Enter your November Event Rank (1-1000)</label>
+        <input type="number" id="rankS2" min="1" max="1000">
+        <div class="result" id="s2result"></div>
+      </div>
+    </div>
+
+    <div class="total">Total Allocation: <span id="total">0</span> $TAKE</div>
+
+    <div class="actions">
+      <button onclick="resetForm()">Reset All</button>
+      <button onclick="copyLink()">Copy Link</button>
+    </div>
+  </div>
 
   <script>
-    const app = document.getElementById("app");
-    const totalDisplay = document.getElementById("totalDisplay");
-    const state = { tiers: {}, pops: {}, ranks: {} };
-
-    function recalculateTotal() {
-      let total = 0;
-      Object.values(state.tiers).forEach(v => total += v);
-      Object.values(state.pops).forEach(v => total += v);
-      Object.values(state.ranks).forEach(v => total += v);
-      totalDisplay.textContent = \`Total Allocation: \${total.toLocaleString(undefined, {maximumFractionDigits: 2})} $TAKE\`;
-    }
-
-    function createSelectCategory(title, allocations) {
-      const category = document.createElement("div");
-      category.className = "category";
-      const heading = document.createElement("h2");
-      heading.textContent = title;
-      category.appendChild(heading);
-
-      Object.entries(allocations).forEach(([labelText, options]) => {
-        const poolDiv = document.createElement("div");
-        poolDiv.className = "pool";
-        const label = document.createElement("label");
-        label.textContent = labelText;
-
-        const select = document.createElement("select");
-        for (const tier in options) {
-          const opt = document.createElement("option");
-          opt.value = tier;
-          opt.textContent = tier;
-          select.appendChild(opt);
-        }
-
-        const result = document.createElement("div");
-        result.className = "result";
-
-        select.addEventListener("change", () => {
-          const value = options[select.value] || 0;
-          state.tiers[labelText] = value;
-          result.textContent = \`+ \${value.toLocaleString()} $TAKE\`;
-          recalculateTotal();
-        });
-
-        poolDiv.appendChild(label);
-        poolDiv.appendChild(select);
-        poolDiv.appendChild(result);
-        category.appendChild(poolDiv);
-      });
-
-      app.appendChild(category);
-    }
-
-    function createYesNoCategory(title, yesValues) {
-      const category = document.createElement("div");
-      category.className = "category";
-      const heading = document.createElement("h2");
-      heading.textContent = title;
-      category.appendChild(heading);
-
-      Object.entries(yesValues).forEach(([labelText, reward]) => {
-        const poolDiv = document.createElement("div");
-        poolDiv.className = "pool";
-        const label = document.createElement("label");
-        label.textContent = labelText;
-
-        const select = document.createElement("select");
-        ["No", "Yes"].forEach(val => {
-          const opt = document.createElement("option");
-          opt.value = val;
-          opt.textContent = val;
-          select.appendChild(opt);
-        });
-
-        const result = document.createElement("div");
-        result.className = "result";
-
-        select.addEventListener("change", () => {
-          const value = select.value === "Yes" ? reward : 0;
-          state.pops[labelText] = value;
-          result.textContent = \`+ \${value.toLocaleString()} $TAKE\`;
-          recalculateTotal();
-        });
-
-        poolDiv.appendChild(label);
-        poolDiv.appendChild(select);
-        poolDiv.appendChild(result);
-        category.appendChild(poolDiv);
-      });
-
-      app.appendChild(category);
-    }
-
-    function createRankInput(title, rankMap) {
-      const category = document.createElement("div");
-      category.className = "category";
-      const heading = document.createElement("h2");
-      heading.textContent = title;
-      category.appendChild(heading);
-
-      const input = document.createElement("input");
-      input.type = "number";
-      input.placeholder = "Enter your rank";
-      const result = document.createElement("div");
-      result.className = "result";
-
-      input.addEventListener("input", () => {
-        const rank = parseInt(input.value);
-        let value = 0;
-        if (!isNaN(rank)) {
-          if (rankMap[rank]) value = rankMap[rank];
-          else if (rank <= 3) value = [150000, 100000, 70000][rank - 1];
-          else if (rank <= 10) value = 25000;
-          else if (rank <= 20) value = 10000;
-          else if (rank <= 50) value = 5000;
-          else if (rank <= 100) value = 2000;
-          else if (rank <= 200) value = 1000;
-          else if (rank <= 500) value = 500;
-          else if (rank <= 1000) value = 200;
-        }
-        state.ranks[title] = value;
-        result.textContent = \`+ \${value.toLocaleString()} $TAKE\`;
-        recalculateTotal();
-      });
-
-      category.appendChild(input);
-      category.appendChild(result);
-      app.appendChild(category);
-    }
-
-    const tierAllocations = {
-      "Clear Quests, Collect AP": { Champion: 250000, Grandmaster: 150000, Master: 100000, Diamond: 57142.86, Platinum: 18888.89, Gold: 3000, Silver: 522.22, Unranked: 0 },
-      "Strengthen your cards": { Champion: 56000, Grandmaster: 30000, Master: 12000, Diamond: 5000, Platinum: 1500, Gold: 750, Silver: 100, Unranked: 0 },
-      "Collect cards and equipment": { Champion: 125000, Grandmaster: 75000, Master: 50000, Diamond: 28142.43, Platinum: 9444.44, Gold: 1500, Silver: 261.11, Unranked: 0 },
-      "Level up and win": { Champion: 75000, Grandmaster: 45000, Master: 30000, Diamond: 17142.86, Platinum: 5666.67, Gold: 900, Silver: 157.67, Unranked: 0 },
-      "Climb the Leaderboard": { Champion: 60000, Grandmaster: 54000, Master: 48000, Diamond: 4600, Platinum: 666, Gold: 300, Silver: 148, Unranked: 0 },
-      "Convert collect AP": { Champion: 450000, Grandmaster: 300000, Master: 225000, Diamond: 23969.07, Platinum: 2833.33, Gold: 450, Silver: 56.67, Unranked: 0 },
-      "Dominate with the highest kills": { Champion: 300000, Grandmaster: 200000, Master: 150000, Diamond: 15979.38, Platinum: 1888.89, Gold: 300, Silver: 37.78, Unranked: 0 },
-      "Survive the zombie hordle": { Champion: 150000, Grandmaster: 100000, Master: 75000, Diamond: 7989.69, Platinum: 944.44, Gold: 150, Silver: 18.89, Unranked: 0 }
-    };
-
     const popAllocations = {
       "Overtake Basics": 1.064,
       "Mint GG:S Pass": 10.13,
@@ -259,16 +159,67 @@
       "Prove Your Love": 1253.91
     };
 
-    const somnisS1Ranks = {
-      1: 14799, 2: 13900, 3: 13772, 4: 13433, 5: 13379, 6: 12961,
-      7: 12352, 8: 12095, 9: 12061, 10: 11965, 98: 9221
-    };
+    const s1Ranks = [14799,13900,13772,13433,13379,12961,12352,12095,12061,11965,11854,11740,11620,11541,11521,11506,11441,11435,11410,11398,11395,11390,11384,11384,11284,11284,11108,10895,10855,10838,10544,10394,10391,10325,10274,10212,10183,10172,10132,10103,10075,10024,9984,9961,9938,9910,9896,9870,9870,9847,9836,9765,9674,9557,9551,9540,9400,9392,9378,9329,9329,9307,9295,9289,9281,9278,9267,9264,9264,9261,9261,9258,9258,9255,9255,9250,9250,9247,9244,9244,9244,9244,9244,9244,9241,9241,9238,9235,9233,9230,9227,9227,9227,9227,9224,9221];
 
-    // Render sections
-    createSelectCategory("Somnis + GG:S Launchpools", tierAllocations);
-    createYesNoCategory("POPs", popAllocations);
-    createRankInput("Somnis Season 1", somnisS1Ranks);
-    createRankInput("Somnis November Event", {});
+    function getS2Allocation(rank) {
+      if (rank == 1) return 150000;
+      if (rank == 2) return 100000;
+      if (rank == 3) return 70000;
+      if (rank <= 10) return 25000;
+      if (rank <= 20) return 10000;
+      if (rank <= 50) return 5000;
+      if (rank <= 100) return 2000;
+      if (rank <= 200) return 1000;
+      if (rank <= 500) return 500;
+      if (rank <= 1000) return 200;
+      return 0;
+    }
+
+    document.querySelectorAll('.check').forEach(div => {
+      const checkName = div.dataset.check;
+      const select = div.querySelector('select');
+      select.addEventListener('change', () => {
+        const value = select.value === 'Yes' ? popAllocations[checkName] : 0;
+        div.querySelector('.result').textContent = `${value.toLocaleString()} $TAKE`;
+        calculateTotal();
+      });
+    });
+
+    document.getElementById('rankS1').addEventListener('input', () => {
+      const rank = parseInt(document.getElementById('rankS1').value);
+      let val = (rank >= 1 && rank <= 98) ? s1Ranks[rank - 1] : 0;
+      document.getElementById('s1result').textContent = `${val.toLocaleString()} $TAKE`;
+      calculateTotal();
+    });
+
+    document.getElementById('rankS2').addEventListener('input', () => {
+      const rank = parseInt(document.getElementById('rankS2').value);
+      const val = getS2Allocation(rank);
+      document.getElementById('s2result').textContent = `${val.toLocaleString()} $TAKE`;
+      calculateTotal();
+    });
+
+    function calculateTotal() {
+      let total = 0;
+      document.querySelectorAll('.result').forEach(r => {
+        const val = parseFloat(r.textContent.replace(/[^\d.]/g, '')) || 0;
+        total += val;
+      });
+      document.getElementById('total').textContent = total.toLocaleString();
+    }
+
+    function resetForm() {
+      document.querySelectorAll('select').forEach(s => s.value = 'No');
+      document.querySelectorAll('input[type="number"]').forEach(i => i.value = '');
+      document.querySelectorAll('.result').forEach(r => r.textContent = '');
+      calculateTotal();
+    }
+
+    function copyLink() {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        alert("Link copied to clipboard!");
+      });
+    }
   </script>
 </body>
 </html>
