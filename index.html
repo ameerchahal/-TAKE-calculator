@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>GameFest Tier Allocation Checker</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet" />
   <style>
@@ -103,7 +103,8 @@
   </header>
 
   <div class="wrapper">
-    <!-- Somnis & GG:S categories -->
+
+    <!-- Somnis Category -->
     <div class="category">
       <h2>Somnis</h2>
       <div class="pool" data-pool="Clear Quests, Collect AP">
@@ -133,6 +134,7 @@
       </div>
     </div>
 
+    <!-- GG:S Category -->
     <div class="category">
       <h2>GG:S</h2>
       <div class="pool" data-pool="Convert collect AP">
@@ -152,62 +154,104 @@
       </div>
     </div>
 
-    <!-- POPs category -->
+    <!-- POPs Category -->
     <div class="category">
       <h2>POPs</h2>
       <div class="check" data-check="Overtake Basics">
         <label>Overtake Basics</label>
-        <select><option>No</option><option>Yes</option></select>
+        <select>
+          <option>No</option>
+          <option>Yes</option>
+        </select>
         <div class="result"></div>
       </div>
       <div class="check" data-check="Mint GG:S Pass">
         <label>Mint GG:S Pass</label>
-        <select><option>No</option><option>Yes</option></select>
+        <select>
+          <option>No</option>
+          <option>Yes</option>
+        </select>
         <div class="result"></div>
       </div>
       <div class="check" data-check="Sui x OVERTAKE April">
         <label>Sui x OVERTAKE April</label>
-        <select><option>No</option><option>Yes</option></select>
+        <select>
+          <option>No</option>
+          <option>Yes</option>
+        </select>
         <div class="result"></div>
       </div>
       <div class="check" data-check="Sui x OVERTAKE March">
         <label>Sui x OVERTAKE March</label>
-        <select><option>No</option><option>Yes</option></select>
+        <select>
+          <option>No</option>
+          <option>Yes</option>
+        </select>
         <div class="result"></div>
       </div>
       <div class="check" data-check="OVERTAKE Quiz Student (lvl 1)">
         <label>OVERTAKE Quiz Student (lvl 1)</label>
-        <select><option>No</option><option>Yes</option></select>
+        <select>
+          <option>No</option>
+          <option>Yes</option>
+        </select>
         <div class="result"></div>
       </div>
+
+      <!-- New POP added here -->
+      <div class="check" data-check="OVERTAKE Quiz (lvl 2)">
+        <label>OVERTAKE Quiz (lvl 2)</label>
+        <select>
+          <option>No</option>
+          <option>Yes</option>
+        </select>
+        <div class="result"></div>
+      </div>
+
       <div class="check" data-check="OVERTAKE Quiz Professor (lvl 3)">
         <label>OVERTAKE Quiz Professor (lvl 3)</label>
-        <select><option>No</option><option>Yes</option></select>
+        <select>
+          <option>No</option>
+          <option>Yes</option>
+        </select>
         <div class="result"></div>
       </div>
+
       <div class="check" data-check="Ultimate Dedication">
         <label>Ultimate Dedication</label>
-        <select><option>No</option><option>Yes</option></select>
+        <select>
+          <option>No</option>
+          <option>Yes</option>
+        </select>
         <div class="result"></div>
       </div>
       <div class="check" data-check="Reward for OGs">
         <label>Reward for OGs</label>
-        <select><option>No</option><option>Yes</option></select>
+        <select>
+          <option>No</option>
+          <option>Yes</option>
+        </select>
         <div class="result"></div>
       </div>
       <div class="check" data-check="Participate in Games">
         <label>Participate in Games</label>
-        <select><option>No</option><option>Yes</option></select>
+        <select>
+          <option>No</option>
+          <option>Yes</option>
+        </select>
         <div class="result"></div>
       </div>
       <div class="check" data-check="Prove Your Love">
         <label>Prove Your Love</label>
-        <select><option>No</option><option>Yes</option></select>
+        <select>
+          <option>No</option>
+          <option>Yes</option>
+        </select>
         <div class="result"></div>
       </div>
     </div>
 
-    <!-- Somnis Season 1 -->
+    <!-- SOMNIS Season 1 -->
     <div class="category">
       <h2>SOMNIS Season 1</h2>
       <div class="rank-check">
@@ -217,7 +261,7 @@
       </div>
     </div>
 
-    <!-- Somnis Season 2 -->
+    <!-- SOMNIS Season 2 -->
     <div class="category">
       <h2>SOMNIS Season 2 (November Event)</h2>
       <div class="rank-check">
@@ -227,7 +271,9 @@
       </div>
     </div>
 
-    <div class="total">Total Allocation: <span id="total">0</span> $TAKE</div>
+    <div class="total">
+      Total Allocation: <span id="total">0</span> $TAKE
+    </div>
 
     <div class="actions">
       <button onclick="resetForm()">Reset All</button>
@@ -245,7 +291,7 @@
         Platinum: 18888.89,
         Gold: 3000,
         Silver: 522.22,
-        Unranked: 0,
+        Unranked: 0
       },
       'Strengthen your cards': {
         Champion: 56000,
@@ -255,7 +301,7 @@
         Platinum: 1500,
         Gold: 750,
         Silver: 100,
-        Unranked: 0,
+        Unranked: 0
       },
       'Collect cards and equipment': {
         Champion: 125000,
@@ -265,7 +311,7 @@
         Platinum: 9444.44,
         Gold: 1500,
         Silver: 261.11,
-        Unranked: 0,
+        Unranked: 0
       },
       'Level up and win': {
         Champion: 75000,
@@ -275,7 +321,7 @@
         Platinum: 5666.67,
         Gold: 900,
         Silver: 157.67,
-        Unranked: 0,
+        Unranked: 0
       },
       'Climb the Leaderboard': {
         Champion: 60000,
@@ -285,7 +331,7 @@
         Platinum: 666,
         Gold: 300,
         Silver: 148,
-        Unranked: 0,
+        Unranked: 0
       },
       'Convert collect AP': {
         Champion: 450000,
@@ -295,7 +341,7 @@
         Platinum: 2833.33,
         Gold: 450,
         Silver: 56.67,
-        Unranked: 0,
+        Unranked: 0
       },
       'Dominate with the highest kills': {
         Champion: 300000,
@@ -305,7 +351,7 @@
         Platinum: 1888.89,
         Gold: 300,
         Silver: 37.78,
-        Unranked: 0,
+        Unranked: 0
       },
       'Survive the zombie hordle': {
         Champion: 150000,
@@ -315,53 +361,17 @@
         Platinum: 944.44,
         Gold: 150,
         Silver: 18.89,
-        Unranked: 0,
-      },
+        Unranked: 0
+      }
     };
 
     const tiers = ['Unranked', 'Silver', 'Gold', 'Platinum', 'Diamond', 'Master', 'Grandmaster', 'Champion'];
 
-    const popAllocations = {
-      'Overtake Basics': 1.064,
-      'Mint GG:S Pass': 10.13,
-      'Sui x OVERTAKE April': 34.89,
-      'Sui x OVERTAKE March': 31.68,
-      'OVERTAKE Quiz Student (lvl 1)': 8.45,
-      'OVERTAKE Quiz Professor (lvl 3)': 45.97,
-      'Ultimate Dedication': 1953.12,
-      'Reward for OGs': 703.23,
-      'Participate in Games': 199.46,
-      'Prove Your Love': 1253.91,
-    };
-
-    const s1Ranks = [
-      14799,13900,13772,13433,13379,12961,12352,12095,12061,11965,11854,11740,11620,11541,
-      11521,11506,11441,11435,11421,11410,11398,11395,11390,11384,11384,11284,11284,11108,
-      10895,10855,10838,10544,10394,10391,10325,10274,10212,10183,10172,10132,10103,10075,
-      10024,9984,9961,9938,9910,9896,9870,9870,9847,9836,9765,9674,9557,9551,9540,9400,9392,
-      9378,9329,9329,9307,9295,9289,9281,9278,9267,9264,9264,9261,9261,9258,9258,9255,9255,
-      9250,9250,9247,9244,9244,9244,9244,9244,9244,9241,9241,9238,9235,9233,9230,9227,9227
-    ];
-
-    function getS2Allocation(rank) {
-      if (rank === 1) return 150000;
-      if (rank === 2) return 100000;
-      if (rank === 3) return 70000;
-      if (rank <= 10) return 25000;
-      if (rank <= 20) return 10000;
-      if (rank <= 50) return 5000;
-      if (rank <= 100) return 2000;
-      if (rank <= 200) return 1000;
-      if (rank <= 500) return 500;
-      if (rank <= 1000) return 200;
-      return 0;
-    }
-
-    // Initialize tier dropdowns for Somnis and GG:S pools
-    document.querySelectorAll('.pool').forEach((poolDiv) => {
+    // Add dropdown options for Somnis & GG:S pools
+    document.querySelectorAll('.pool').forEach(poolDiv => {
       const poolName = poolDiv.dataset.pool;
       const select = poolDiv.querySelector('select');
-      tiers.forEach((tier) => {
+      tiers.forEach(tier => {
         const opt = document.createElement('option');
         opt.value = tier;
         opt.textContent = tier;
@@ -376,8 +386,53 @@
       });
     });
 
-    // Handle POPs yes/no dropdowns
-    document.querySelectorAll('.check').forEach((div) => {
+    // POP allocations including new quiz lvl 2
+    const popAllocations = {
+      "Overtake Basics": 1.064,
+      "Mint GG:S Pass": 10.13,
+      "Sui x OVERTAKE April": 34.89,
+      "Sui x OVERTAKE March": 31.68,
+      "OVERTAKE Quiz Student (lvl 1)": 8.45,
+      "OVERTAKE Quiz (lvl 2)": 11.29,
+      "OVERTAKE Quiz Professor (lvl 3)": 45.97,
+      "Ultimate Dedication": 1953.12,
+      "Reward for OGs": 703.23,
+      "Participate in Games": 199.46,
+      "Prove Your Love": 1253.91
+    };
+
+    // SOMNIS S1 ranks - added null as dummy for 1-based index
+    const s1Ranks = [
+      null,
+      14799,13900,13772,13433,13379,12961,12352,12095,12061,11965,
+      11854,11740,11620,11541,11521,11506,11441,11435,11421,11410,
+      11398,11395,11390,11384,11384,11284,11284,11108,10895,10855,
+      10838,10544,10394,10391,10325,10274,10212,10183,10172,10132,
+      10103,10075,10024,9984,9961,9938,9910,9896,9870,9870,
+      9847,9836,9765,9674,9557,9551,9540,9400,9392,9378,
+      9329,9329,9307,9295,9289,9281,9278,9267,9264,9264,
+      9261,9261,9258,9258,9255,9255,9250,9250,9247,9244,
+      9244,9244,9244,9244,9244,9241,9241,9238,9235,9233,
+      9230,9227,9227,9227,9227,9224,9221
+    ];
+
+    // S2 allocation logic
+    function getS2Allocation(rank) {
+      if (rank == 1) return 150000;
+      if (rank == 2) return 100000;
+      if (rank == 3) return 70000;
+      if (rank <= 10) return 25000;
+      if (rank <= 20) return 10000;
+      if (rank <= 50) return 5000;
+      if (rank <= 100) return 2000;
+      if (rank <= 200) return 1000;
+      if (rank <= 500) return 500;
+      if (rank <= 1000) return 200;
+      return 0;
+    }
+
+    // Handle POP selects
+    document.querySelectorAll('.check').forEach(div => {
       const checkName = div.dataset.check;
       const select = div.querySelector('select');
       select.addEventListener('change', () => {
@@ -387,17 +442,18 @@
       });
     });
 
-    // Somnis Season 1 rank input
-    const rankS1Input = document.getElementById('rankS1');
-    rankS1Input.setAttribute('max', s1Ranks.length);
-    rankS1Input.addEventListener('input', () => {
-      const rank = parseInt(rankS1Input.value);
-      let val = rank >= 1 && rank <= s1Ranks.length ? s1Ranks[rank - 1] : 0;
+    // SOMNIS S1 input handler
+    document.getElementById('rankS1').addEventListener('input', () => {
+      const rank = parseInt(document.getElementById('rankS1').value);
+      let val = 0;
+      if(rank >= 1 && rank < s1Ranks.length) {
+        val = s1Ranks[rank];
+      }
       document.getElementById('s1result').textContent = `${val.toLocaleString()} $TAKE`;
       calculateTotal();
     });
 
-    // Somnis Season 2 rank input
+    // SOMNIS S2 input handler
     document.getElementById('rankS2').addEventListener('input', () => {
       const rank = parseInt(document.getElementById('rankS2').value);
       const val = getS2Allocation(rank);
@@ -405,54 +461,50 @@
       calculateTotal();
     });
 
-    // Calculate total $TAKE allocation
+    // Calculate total allocation
+    function calculateTotal() {
+      let total = 0;
+
     function calculateTotal() {
       let total = 0;
 
       // Sum Somnis & GG:S pools
-      document.querySelectorAll('.pool').forEach((poolDiv) => {
-        const poolName = poolDiv.dataset.pool;
-        const tier = poolDiv.querySelector('select').value;
-        total += allocations[poolName][tier] || 0;
-      });
-
-      // Sum POPs
-      document.querySelectorAll('.check').forEach((div) => {
-        const valText = div.querySelector('.result').textContent;
-        const val = parseFloat(valText.replace(/[^\d.]/g, '')) || 0;
+      document.querySelectorAll('.pool').forEach(poolDiv => {
+        const resultText = poolDiv.querySelector('.result').textContent;
+        const val = parseFloat(resultText.replace(/[^\d.]/g, '')) || 0;
         total += val;
       });
 
-      // Add Somnis S1 allocation
-      const s1ValText = document.getElementById('s1result').textContent;
-      const s1Val = parseFloat(s1ValText.replace(/[^\d.]/g, '')) || 0;
-      total += s1Val;
+      // Sum POPs
+      document.querySelectorAll('.check .result').forEach(res => {
+        const val = parseFloat(res.textContent.replace(/[^\d.]/g, '')) || 0;
+        total += val;
+      });
 
-      // Add Somnis S2 allocation
-      const s2ValText = document.getElementById('s2result').textContent;
-      const s2Val = parseFloat(s2ValText.replace(/[^\d.]/g, '')) || 0;
-      total += s2Val;
+      // Add SOMNIS S1 allocation
+      const s1Text = document.getElementById('s1result').textContent;
+      total += parseFloat(s1Text.replace(/[^\d.]/g, '')) || 0;
+
+      // Add SOMNIS S2 allocation
+      const s2Text = document.getElementById('s2result').textContent;
+      total += parseFloat(s2Text.replace(/[^\d.]/g, '')) || 0;
 
       document.getElementById('total').textContent = total.toLocaleString();
     }
 
-    // Reset all inputs and results
     function resetForm() {
-      document.querySelectorAll('select').forEach((s) => (s.value = 'Unranked'));
-      document.querySelectorAll('input[type="number"]').forEach((i) => (i.value = ''));
-      document.querySelectorAll('.result').forEach((r) => (r.textContent = ''));
+      // Reset dropdowns and inputs
+      document.querySelectorAll('select').forEach(s => s.value = 'No');
+      document.querySelectorAll('input[type="number"]').forEach(i => i.value = '');
+      document.querySelectorAll('.result').forEach(r => (r.textContent = ''));
       calculateTotal();
     }
 
-    // Copy current URL to clipboard
     function copyLink() {
       navigator.clipboard.writeText(window.location.href).then(() => {
-        alert('Link copied to clipboard!');
+        alert("Link copied to clipboard!");
       });
     }
-
-    // Set all Somnis & GG:S selects initially to 'Unranked'
-    resetForm();
   </script>
 </body>
 </html>
